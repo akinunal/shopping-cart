@@ -1,0 +1,13 @@
+.invoice {
+    border: 4px solid green;
+    height: 100%;
+}
+
+.invoice p {
+    font-size: 200%;
+}
+
+.invoice span {
+    color: green;
+    font-size: 120%
+}

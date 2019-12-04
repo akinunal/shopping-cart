@@ -1,0 +1,30 @@
+.productContainer {
+    height: 100%;
+    padding: 30px;
+    margin-right: 30px;
+    width: 1000px;
+}
+
+.fullContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 100%;
+    text-align: center;
+}
+
+.productsContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttonContainer {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: white;
+}

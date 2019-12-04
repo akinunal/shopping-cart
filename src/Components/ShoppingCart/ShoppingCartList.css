@@ -1,0 +1,16 @@
+.list {
+    list-style: none;
+    font-size: 100%;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.shoppingCartList {
+    text-align: start;
+}
+
+.list::after {
+    content: ' X 1';
+    font-size: 105%;
+    font-weight: bold;
+}

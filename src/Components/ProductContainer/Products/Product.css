@@ -1,0 +1,26 @@
+.products {
+    text-align: center;
+    padding: 0;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.productName {
+    font-size: 20px;
+}
+
+.productPrice {
+    font-size: 200%;
+    margin: 0 0 10px 0;
+}
+
+.imageBox {
+    width: 100%;
+}
+
+.image {
+    cursor: pointer
+}
