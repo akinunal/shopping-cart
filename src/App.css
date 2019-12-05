@@ -17,14 +17,22 @@ h1 {
   color: black
 }
 
+h3 {
+  padding-top: 15px;
+}
+
 button {
   cursor: pointer
 }
 
 button:focus {
-  outline:0
+  outline:0!important
 }
 
-.homepage {
+.homepageAnchor {
+  text-decoration: none;
+}
+
+.homepageAnchor:hover {
   text-decoration: none;
 }

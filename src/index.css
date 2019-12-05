@@ -1,17 +1,8 @@
 body {
   margin: 0;
-  font-family: 'Solway', serif;
-  ;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(246, 246, 246);
-  box-sizing: border-box;
-}
-
-code {
-  font-family: 'Solway', serif
-}
-
-button {
-  font-family: 'Solway', serif
+  font-family: 'Solway', serif!important;
+  -webkit-font-smoothing: antialiased!important;;
+  -moz-osx-font-smoothing: grayscale!important;;
+  background-color: rgb(246, 246, 246)!important;;
+  box-sizing: border-box!important;;
 }

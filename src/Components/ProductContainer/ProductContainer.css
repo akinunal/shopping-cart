@@ -1,7 +1,5 @@
 .productContainer {
     height: 100%;
-    padding: 30px;
-    margin-right: 30px;
     width: 1000px;
 }
 
@@ -25,6 +23,7 @@
 
 .buttonContainer {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
     background-color: white;
+    border-radius: 5px;
 }

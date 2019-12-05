@@ -1,8 +1,9 @@
 import React from 'react'
 import './ProductContainer.css'
-import Product from './Products/Product'
+import Product from '../Products/Product'
 import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import Invoice from '../Invoice/Invoice'
+import ModalImage from "react-modal-image";
 
 class ProductContainer extends React.Component {
     state = {
@@ -13,8 +14,7 @@ class ProductContainer extends React.Component {
         isFiltered: false,
         isLoading: true,
         originalSort: [],
-        biggerProducts: false,
-        fullScreenPicture: false
+        biggerProducts: false
     }
 
     componentDidMount() {
@@ -41,12 +41,13 @@ class ProductContainer extends React.Component {
     selectItemHandler = (num) => {
         let copyPro = this.state.products[num];
         let copySel = this.state.selectedItems;
-        let priceCopy = this.state.totalPrice
 
-        this.setState({
-            selectedItems: [...copySel, copyPro],
-            totalPrice: priceCopy + this.state.products[num].price,
-            isPrinted: false
+        this.setState((prevState) => {
+            return {
+                selectedItems: [...copySel, copyPro],
+                totalPrice: prevState.totalPrice + copyPro.price,
+                isPrinted: false
+            }
         })
     }
 
@@ -65,13 +66,6 @@ class ProductContainer extends React.Component {
     showFourItems = () => {
         this.setState({
             biggerProducts: false
-        })
-    }
-
-    fullScreenPictureHandler = () => {
-        const fullScreen = this.state.fullScreenPicture
-        this.setState({
-            fullScreenPicture: !fullScreen
         })
     }
 
@@ -99,11 +93,26 @@ class ProductContainer extends React.Component {
     }
 
     deleteFromShoppingCard = (index) => {
-        const selectItem = [...this.state.selectedItems]
+        const selectItem = [...this.state.selectedItems];
+        const itemPrice = this.state.selectedItems[index].price;
         selectItem.splice(index, 1)
-        this.setState({
-            selectedItems: selectItem
+        this.setState((prevState) => {
+            return {
+                selectedItems: selectItem,
+                totalPrice: prevState.totalPrice - itemPrice,
+                isPrinted: false
+            }
         })
+    }
+
+    selectProduct = (event) => {
+        console.log(event.target.src)
+        return (
+            <ModalImage
+                small={event.target.src}
+                alt="Hello World!"
+            />
+        )
     }
 
     render() {
@@ -113,7 +122,7 @@ class ProductContainer extends React.Component {
             border: '2px solid white',
             fontSize: '120%'
         }
-        console.log(this.state.fullScreenPicture)
+
         return (
 
             <div className='fullContainer'>
@@ -132,14 +141,12 @@ class ProductContainer extends React.Component {
                         {!this.state.isLoading ? (this.state.products.map((el, i) => {
                             return (
                                 <Product
-                                    fullScreen={this.state.fullScreenPicture}
-                                    clickFullScreen={this.fullScreenPictureHandler}
-                                    img={el.imgUrl}
-                                    name={el.name}
-                                    price={el.price}
+                                    product={el}
                                     click={this.selectItemHandler.bind(this, i)}
                                     key={i}
-                                    size={this.state.biggerProducts} />
+                                    size={this.state.biggerProducts}
+                                    selectedIndex={i}
+                                    onClick={(event) => this.selectProduct(event)} />
                             )
                         })) : <h1 style={{ fontSize: '300%', marginTop: '100px' }}>LOADING PRODUCTS...</h1>
                         }
