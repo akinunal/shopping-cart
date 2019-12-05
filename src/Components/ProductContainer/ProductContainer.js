@@ -3,7 +3,7 @@ import './ProductContainer.css'
 import Product from '../Products/Product'
 import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import Invoice from '../Invoice/Invoice'
-import ModalImage from "react-modal-image";
+import { Lightbox } from "react-modal-image";
 
 class ProductContainer extends React.Component {
     state = {
@@ -14,15 +14,14 @@ class ProductContainer extends React.Component {
         isFiltered: false,
         isLoading: true,
         originalSort: [],
-        biggerProducts: false
+        biggerProducts: false,
+        open: false,
+        activeProductName: '',
+        activeProductUrl: null
     }
 
     componentDidMount() {
         this.fetchUsers();
-    }
-
-    componentDidUpdate() {
-        console.log(this.state.products)
     }
 
     fetchUsers() {
@@ -105,14 +104,12 @@ class ProductContainer extends React.Component {
         })
     }
 
-    selectProduct = (event) => {
-        console.log(event.target.src)
-        return (
-            <ModalImage
-                small={event.target.src}
-                alt="Hello World!"
-            />
-        )
+    modalHandler = (product) => {
+        this.setState({
+            open: true,
+            activeProductName: product.name,
+            activeProductUrl: product.imgUrl,
+        })
     }
 
     render() {
@@ -124,19 +121,26 @@ class ProductContainer extends React.Component {
         }
 
         return (
-
-            <div className='fullContainer'>
+            < div className='fullContainer' >
+                {this.state.open && (
+                    <Lightbox
+                        medium={this.state.activeProductUrl}
+                        large={this.state.activeProductUrl}
+                        alt={this.state.activeProductName}
+                        onClose={() => this.setState({ open: false })}
+                    />
+                )}
                 <div className='productContainer'>
                     <div className='buttonContainer'>
                         <button style={styleButtons}
                             onClick={this.showTwoItems}>Show 2 items</button>|
                         <button style={styleButtons}
                             onClick={this.showFourItems}>Show 4 items</button>|
-                        <button style={styleButtons} onClick={this.sortPriceHandler}>Sort by price</button>|
+                        <button style={styleButtons}
+                            onClick={this.sortPriceHandler}>Sort by price</button>|
                         <button style={styleButtons}
                             onClick={this.sortByOriginalHandler}>Sort by original</button>
                     </div>
-
                     <div className='productsContainer'>
                         {!this.state.isLoading ? (this.state.products.map((el, i) => {
                             return (
@@ -146,7 +150,7 @@ class ProductContainer extends React.Component {
                                     key={i}
                                     size={this.state.biggerProducts}
                                     selectedIndex={i}
-                                    onClick={(event) => this.selectProduct(event)} />
+                                    onClick={() => this.modalHandler(el)} />
                             )
                         })) : <h1 style={{ fontSize: '300%', marginTop: '100px' }}>LOADING PRODUCTS...</h1>
                         }
@@ -161,7 +165,7 @@ class ProductContainer extends React.Component {
                     />
                     <Invoice print={this.state.isPrinted} price={this.state.totalPrice} />
                 </div>
-            </div>
+            </div >
         )
     }
 }

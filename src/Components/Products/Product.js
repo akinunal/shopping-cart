@@ -20,8 +20,6 @@ const products = props => {
         }
     }
 
-
-
     return (
         <div style={width} className='products'>
             <div className='imageBox' style={divSize}>

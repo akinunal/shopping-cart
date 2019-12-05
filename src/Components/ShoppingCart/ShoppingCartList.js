@@ -1,7 +1,7 @@
 import React from 'react'
 import './ShoppingCartList.css'
 
-const shoppingCart = props => {
+const shoppingCartList = props => {
     return (
         <div className='shoppingCartList'>
             <ul>
@@ -11,4 +11,4 @@ const shoppingCart = props => {
     )
 }
 
-export default shoppingCart
+export default shoppingCartList
