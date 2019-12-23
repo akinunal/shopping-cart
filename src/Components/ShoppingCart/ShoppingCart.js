@@ -6,7 +6,8 @@ const ShoppingCart = props => {
     return (
         <div className='shoppingCart'>
             <div className='wrapper'>
-                <h3>YOUR CART</h3></div>
+                <h3>YOUR CART</h3>
+            </div>
             <List items={props.items} deleteItem={props.deleteItem} />
             <p className='price'>$ {props.totalAmount}</p>
             <button

@@ -1,5 +1,6 @@
 .shoppingCart {
     border: 3px solid #006680;
+    margin-top: 20px;
     margin-bottom: 40px;
     height: 100%;
     display: flex;

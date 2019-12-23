@@ -1,9 +1,12 @@
 import React from 'react'
 import './ProductContainer.css'
-import Product from '../Products/Product'
+import Product from '../Product/Product'
 import ShoppingCart from '../ShoppingCart/ShoppingCart'
 import Invoice from '../Invoice/Invoice'
 import { Lightbox } from "react-modal-image";
+import { Route } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
+import ProductDetails from '../ProductDetails/ProductDetails';
 
 class ProductContainer extends React.Component {
     state = {
@@ -16,12 +19,16 @@ class ProductContainer extends React.Component {
         originalSort: [],
         biggerProducts: false,
         open: false,
-        activeProductName: '',
-        activeProductUrl: null
+        activeProduct: {},
+        descriptionModal: false
     }
 
     componentDidMount() {
         this.fetchUsers();
+        // const data = localStorage.getItem('data')
+        // this.setState({
+        //     totalPrice: data
+        // })
     }
 
     fetchUsers() {
@@ -34,7 +41,7 @@ class ProductContainer extends React.Component {
                     originalSort: data
                 })
                 ).catch(error => console.log(error))
-        }, 2000);
+        }, 3000);
     }
 
     selectItemHandler = (num) => {
@@ -107,10 +114,22 @@ class ProductContainer extends React.Component {
     modalHandler = (product) => {
         this.setState({
             open: true,
-            activeProductName: product.name,
-            activeProductUrl: product.imgUrl,
+            activeProduct: product
         })
     }
+
+    descriptionModalHandler = (product) => {
+        this.setState({
+            descriptionModal: true,
+            activeProduct: product
+        })
+    }
+
+    // storeDataHandler = () => {
+    //     let newData = this.state.selectedItems.map(el => el.price)
+    //     localStorage.setItem('data', newData.reduce((a,b) => a + b))
+    //     console.log(newData)
+    // }
 
     render() {
         let styleButtons = {
@@ -119,17 +138,25 @@ class ProductContainer extends React.Component {
             border: '2px solid white',
             fontSize: '120%'
         }
-
+        
         return (
             < div className='fullContainer' >
+                {this.state.descriptionModal && (
+                <ProductDetails 
+                    close={() => this.setState({ descriptionModal: false })}
+                    product={this.state.activeProduct}
+                />
+                )}
+
                 {this.state.open && (
                     <Lightbox
-                        medium={this.state.activeProductUrl}
-                        large={this.state.activeProductUrl}
-                        alt={this.state.activeProductName}
+                        medium={this.state.activeProduct.imgUrl}
+                        large={this.state.activeProduct.imgUrl}
+                        alt={this.state.activeProduct.name}
                         onClose={() => this.setState({ open: false })}
                     />
                 )}
+
                 <div className='productContainer'>
                     <div className='buttonContainer'>
                         <button style={styleButtons}
@@ -150,9 +177,10 @@ class ProductContainer extends React.Component {
                                     key={i}
                                     size={this.state.biggerProducts}
                                     selectedIndex={i}
-                                    onClick={() => this.modalHandler(el)} />
+                                    onClick={() => this.modalHandler(el)}
+                                    clickedProduct={() => this.descriptionModalHandler(el)} />
                             )
-                        })) : <h1 style={{ fontSize: '300%', marginTop: '100px' }}>LOADING PRODUCTS...</h1>
+                        })) : <Spinner />
                         }
                     </div>
                 </div>
@@ -161,6 +189,7 @@ class ProductContainer extends React.Component {
                         items={this.state.selectedItems}
                         totalAmount={this.state.totalPrice}
                         click={this.printInvoiceHandler}
+                        storeData={this.storeDataHandler}
                         deleteItem={(i) => this.deleteFromShoppingCard(i)}
                     />
                     <Invoice print={this.state.isPrinted} price={this.state.totalPrice} />
