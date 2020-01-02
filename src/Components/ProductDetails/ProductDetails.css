@@ -1,0 +1,98 @@
+.detailContainer {
+    position: absolute;
+    background-color: #789;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 2500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 50px;
+}
+
+.imgBox {
+    width: 45%;
+    height: auto;
+    flex-basis: 500px;
+}
+
+.imgBox img {
+    width: 500px;
+}
+
+.descriptionBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.closeButton {
+    width: 20px;
+    color: #789
+}
+
+.colorBox {
+    margin-top: 20px;
+    display: flex;
+    height: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.red {
+    background-color: red;
+    border: 20px solid red;
+}
+
+.blue {
+    background-color: blue;
+    border: 20px solid blue;
+}
+
+.black {
+    background-color: black;
+    border: 20px solid black;
+}
+
+.colorText {
+    color: black;
+    font-size: 110%;
+    margin-bottom: 25px;
+    margin-right: 20px;
+}
+
+.numberText {
+    color: black;
+    font-size: 110%;
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+.colorButton {
+    margin-right: 10px;
+    border-radius: 15px;
+}
+
+.numberBox {
+    margin-top: 20px;
+    display: flex;
+    height: 80px;
+    text-align: center;
+    align-items: center;
+}
+
+.numberBox select {
+    width: 40px;
+    height: 40px;
+}
+
+.optionBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.descriptionContainer {
+    flex-basis: 700px;
+}
